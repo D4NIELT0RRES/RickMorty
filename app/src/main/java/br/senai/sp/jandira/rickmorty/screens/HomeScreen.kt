@@ -23,7 +23,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -53,14 +52,15 @@ fun HomeScreen(modifier: Modifier = Modifier){
         .getCharacterService()
         .listAllCharacters()
 
-    call.enqueue(object : Callback <Result> {
-        override fun onResponse(call: Call<Result>, response: Response<Result>) {
-            characterList = response.body()!!.result!!
+    call.enqueue(object : Callback<Result> {
+        override fun onResponse(p0: Call<Result>, p1: Response<Result>) {
+            characterList = p1.body()!!.result!!
         }
 
         override fun onFailure(p0: Call<Result>, p1: Throwable) {
             TODO("Not yet implemented")
         }
+
     })
 
     Box(
